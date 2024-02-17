@@ -1,11 +1,11 @@
 version: "3.5"
 
 services:
-  api01: &api
+  pyapi01: &api
     build:
       context: .
       dockerfile: Dockerfile
-    hostname: api01
+    hostname: pyapi01
     environment:
       - DB_HOSTNAME=db
       - PORT=3000
@@ -19,17 +19,17 @@ services:
           cpus: "0.45"
           memory: "200MB"
 
-  api02:
+  pyapi02:
     <<: *api
-    hostname: api02
+    hostname: pyapi02
 
   nginx:
     image: nginx:latest
     volumes:
       - ./nginx.conf:/etc/nginx/nginx.conf:ro
     depends_on:
-      - api01
-      - api02
+      - pyapi01
+      - pyapi02
     ports:
       - "9999:9999"
     deploy:
@@ -59,4 +59,4 @@ services:
 networks:
   default:
     driver: bridge
-    name: rinha-nginx-2024q1
+    name: rinha-nginx-2024q1-python
