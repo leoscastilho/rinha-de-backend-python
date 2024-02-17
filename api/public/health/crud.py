@@ -1,7 +1,7 @@
 from fastapi import Depends
 from sqlmodel import Session, text
 
-from api.config import settings
+from api.config.config import settings
 from api.database import get_session
 from api.public.health.models import Health, Stats, Status
 from api.public.clientes.crud import read_clientes

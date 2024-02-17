@@ -1,6 +1,6 @@
 from sqlmodel import Session, SQLModel, create_engine
 
-from api.config import settings
+from api.config.config import settings
 
 engine = create_engine(settings.DATABASE_URI)
 
