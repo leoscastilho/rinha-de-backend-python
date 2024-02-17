@@ -4,12 +4,11 @@ WORKDIR /app
 
 COPY tests /app/tests
 COPY Pipfile /app
-#COPY Pipfile.lock /app
+COPY Pipfile.lock /app
 COPY .env /app/.env
 RUN pip install --upgrade pip
 RUN pip install pipenv
-RUN #pipenv install --system --deploy --ignore-pipfile --${PIPENV_ARGS}
-RUN pipenv install --deploy --ignore-pipfile --${PIPENV_ARGS}
+RUN pipenv install --system --deploy --ignore-pipfile --${PIPENV_ARGS}
 
 RUN cat /etc/ssl/certs/ca-certificates.crt >> `python -m certifi`
 
