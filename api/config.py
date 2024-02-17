@@ -11,7 +11,7 @@ class Settings(BaseSettings):
     ENV: Literal["development", "staging", "production"] = "development"
     VERSION: str = "0.1"
     SECRET_KEY: str = secrets.token_urlsafe(32)
-    DATABASE_URI: str = "postgresql://admin:123@localhost:5432/rinha"
+    DATABASE_URI: str = "postgresql://admin:123@db:5432/rinha"
     API_USERNAME: str = "svc_test"
     API_PASSWORD: str = "superstrongpassword"
 
@@ -19,12 +19,15 @@ class Settings(BaseSettings):
         case_sensitive = True
 
 
-settings = Settings()
+class DevelopmentSettings(Settings):
+    DATABASE_URI: str = "postgresql://admin:123@localhost:5432/rinha"
 
-
-class TestSettings(Settings):
     class Config:
         case_sensitive = True
 
 
-test_settings = TestSettings()
+environment = os.environ.get('PYTHON_ENV', 'development')
+if environment == 'development':
+    settings = DevelopmentSettings()
+if environment == 'production':
+    settings = Settings()
