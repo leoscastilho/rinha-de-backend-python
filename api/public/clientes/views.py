@@ -9,17 +9,17 @@ from api.public.clientes.crud import (
     read_clientes,
     update_cliente,
 )
-from api.public.clientes.models import ClienteCreate, ClienteRead, ClienteUpdate
+from api.public.clientes.models import ClientesCreate, ClientesRead, ClientesUpdate
 
 router = APIRouter()
 
 
-@router.post("", response_model=ClienteRead)
-def create_a_cliente(cliente: ClienteCreate, db: Session = Depends(get_session)):
+@router.post("", response_model=ClientesRead)
+def create_a_cliente(cliente: ClientesCreate, db: Session = Depends(get_session)):
     return create_cliente(cliente=cliente, db=db)
 
 
-@router.get("", response_model=list[ClienteRead])
+@router.get("", response_model=list[ClientesRead])
 def get_clientes(
     offset: int = 0,
     limit: int = Query(default=100, lte=100),
@@ -28,13 +28,13 @@ def get_clientes(
     return read_clientes(offset=offset, limit=limit, db=db)
 
 
-@router.get("/{cliente_id}", response_model=ClienteRead)
+@router.get("/{cliente_id}", response_model=ClientesRead)
 def get_a_hero(cliente_id: int, db: Session = Depends(get_session)):
     return read_cliente(cliente_id=cliente_id, db=db)
 
 
-@router.patch("/{cliente_id}", response_model=ClienteRead)
-def update_a_cliente(cliente_id: int, cliente: ClienteUpdate, db: Session = Depends(get_session)):
+@router.patch("/{cliente_id}", response_model=ClientesRead)
+def update_a_cliente(cliente_id: int, cliente: ClientesUpdate, db: Session = Depends(get_session)):
     return update_cliente(cliente_id=cliente_id, cliente=cliente, db=db)
 
 

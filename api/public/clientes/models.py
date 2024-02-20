@@ -1,8 +1,8 @@
-from sqlmodel import Field, SQLModel
+from sqlmodel import Field, SQLModel, Relationship
 
+from api.public.transacoes.models import Transacoes
 
-class ClienteBase(SQLModel):
-    id: int
+class ClientesBase(SQLModel):
     nome: str
     limite: int | None = None
     saldo: int | None = None
@@ -18,25 +18,28 @@ class ClienteBase(SQLModel):
         }
 
 
-class Cliente(ClienteBase, table=True):
+class Clientes(ClientesBase, table=True):
     id: int | None = Field(default=None, primary_key=True)
+    transacoes: list["Transacoes"] = Relationship(back_populates="clientes")
 
 
-class ClienteCreate(ClienteBase):
+class ClientesCreate(ClientesBase):
     pass
 
 
-class ClienteRead(ClienteBase):
+class ClientesRead(ClientesBase):
     id: int
     nome: str | None = None
     limite: int | None = None
     saldo: int | None = None
+    transacoes: list[Transacoes] = None
 
 
-class ClienteUpdate(ClienteBase):
+class ClientesUpdate(ClientesBase):
     nome: str | None = None
     limite: int | None = None
     saldo: int | None = None
+    transacoes: list[Transacoes] = None
 
     class Config:
         json_schema_extra = {

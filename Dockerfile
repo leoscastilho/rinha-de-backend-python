@@ -17,5 +17,5 @@ COPY api/ /app/api
 COPY entrypoint.sh /app/entrypoint.sh
 
 EXPOSE 8080
-ENTRYPOINT ["/app/entrypoint.sh"]
-CMD ["sleep", "indefinetely", "uvicorn", "asgi:api", "--host", "0.0.0.0", "--port", "8080"]
+#ENTRYPOINT ["/app/entrypoint.sh"]
+CMD ["uvicorn", "asgi:api", "--host", "0.0.0.0", "--port", "8080"]
