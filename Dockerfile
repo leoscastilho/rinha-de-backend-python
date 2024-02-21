@@ -9,6 +9,7 @@ COPY asgi.py /app
 COPY .env /app/.env
 RUN pip install --upgrade pip
 RUN pip install pipenv
+RUN pip install psycopg2-binary
 RUN pipenv install --system --deploy --ignore-pipfile --${PIPENV_ARGS}
 
 RUN cat /etc/ssl/certs/ca-certificates.crt >> `python -m certifi`
