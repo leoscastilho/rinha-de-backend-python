@@ -36,7 +36,7 @@ def update_cliente(cliente_id: int, cliente: ClientesUpdate, db: Session = Depen
             detail=f"Cliente not found with id: {cliente_id}",
         )
 
-    #TODO: updates to cliente
+    cliente_to_update.saldo = cliente.saldo
 
     db.add(cliente_to_update)
     db.commit()

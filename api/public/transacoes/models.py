@@ -1,6 +1,7 @@
 from datetime import datetime
 from typing import Optional
 
+from pydantic import BaseModel
 from sqlmodel import Field, SQLModel, Relationship
 
 
@@ -30,7 +31,6 @@ class Transacoes(TransacoesBase, table=True):
     clientes: Optional["Clientes"] = Relationship(back_populates="transacoes")
 
 
-
 class TransacaoCreate(TransacoesBase):
     cliente_id: int
     valor: int
@@ -57,3 +57,14 @@ class TransacaoRead(TransacoesBase):
     descricao: str | None = None
     realizada_em: datetime | None = None
     clientes: list | None = None
+
+
+class TransacaoRequest(BaseModel):
+    valor: int | None = None
+    tipo: str | None = None
+    descricao: str | None = None
+
+
+class TransacaoResponse(BaseModel):
+    limite: int | None = None
+    saldo: int | None = None

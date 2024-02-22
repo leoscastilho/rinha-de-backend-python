@@ -1,11 +1,13 @@
 from sqlmodel import Field, SQLModel, Relationship
 
 from api.public.transacoes.models import Transacoes
+from datetime import datetime
+
 
 class ClientesBase(SQLModel):
     nome: str
     limite: int | None = None
-    saldo: int | None = None
+    saldo: int | None = 0
 
     class Config:
         json_schema_extra = {
@@ -13,7 +15,7 @@ class ClientesBase(SQLModel):
                 "id": 1,
                 "nome": "Clark Kent",
                 "limite": 1000,
-                "saldo": 500
+                "saldo": 0
             }
         }
 
