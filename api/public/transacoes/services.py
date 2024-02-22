@@ -35,8 +35,11 @@ def validate_saldo(transacao: TransacaoRequest, cliente: ClientesUpdate):
 
 def process_transacao(transacao: TransacaoRequest, cliente: ClientesUpdate, db: Session):
     validate_transacao(transacao)
-    validate_saldo(transacao, cliente)
-    cliente.saldo -= transacao.valor
+    if transacao.tipo is "d":
+        validate_saldo(transacao, cliente)
+        cliente.saldo -= transacao.valor
+    else:
+        cliente.saldo += transacao.valor
     updated_cliente = update_cliente(cliente_id=cliente.id, cliente=cliente, db=db)
     created_transacao = create_transacao(transacao=TransacaoCreate(cliente_id=updated_cliente.id,
                                                                    valor=transacao.valor,
